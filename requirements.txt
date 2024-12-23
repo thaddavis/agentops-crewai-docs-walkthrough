@@ -1,0 +1,3 @@
+crewai==0.86.0
+agentops==0.3.21
+python-dotenv==1.0.1
