@@ -1,0 +1,21 @@
+[project]
+name = "with_da_tools"
+version = "0.1.0"
+description = "with_da_tools using crewAI"
+authors = [{ name = "Your Name", email = "you@example.com" }]
+requires-python = ">=3.10,<=3.13"
+dependencies = [
+    "agentops>=0.3.21",
+    "crewai[tools]>=0.86.0,<1.0.0",
+]
+
+[project.scripts]
+with_da_tools = "with_da_tools.main:run"
+run_crew = "with_da_tools.main:run"
+train = "with_da_tools.main:train"
+replay = "with_da_tools.main:replay"
+test = "with_da_tools.main:test"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
