@@ -37,16 +37,18 @@ def markdown_validation_tool(file_path: str) -> str:
         print(f"API Exception: {this_exception}", file=sys.stderr)
         return f"API Exception: {str(this_exception)}"
     
-openai_llm = LLM(
-  model="gpt-4o-mini",
-  temperature=0.8,
-  max_tokens=150,
-  top_p=0.9,
-  frequency_penalty=0.1,
-  presence_penalty=0.1,
-  stop=["END"],
-  seed=42
-)
+# openai_llm = LLM(
+#   model="gpt-4o-mini",
+#   temperature=0.8,
+#   max_tokens=150,
+#   top_p=0.9,
+#   frequency_penalty=0.1,
+#   presence_penalty=0.1,
+#   stop=["END"],
+#   seed=42
+# )
+
+ollama_llm=LLM(model="ollama/llama3.1", base_url="http://localhost:11434")
 
 filename = "README.md"
 
@@ -69,7 +71,7 @@ general_agent = Agent(
     allow_delegation=False,
     verbose=True,
     tools=[markdown_validation_tool],
-    llm=openai_llm,
+    llm=ollama_llm,
 )
 
 syntax_review_task = Task(
@@ -94,7 +96,7 @@ syntax_review_task = Task(
         If you already know the answer or if you do not need 
         to use a tool, return it as your Final Answer.""",
     agent=general_agent,
-    expected_output="",
+    expected_output="A list of validation results and suggestions on how to fix them.",
 )
 
 print("\n\nStarting the task...\n\n")

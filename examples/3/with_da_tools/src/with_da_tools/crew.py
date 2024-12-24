@@ -1,4 +1,4 @@
-from crewai import Agent, Crew, Process, Task
+from crewai import LLM, Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 from crewai_tools import YoutubeChannelSearchTool
 from crewai_tools import PDFSearchTool
@@ -26,14 +26,16 @@ class WithDaTools():
 		return Agent(
 			config=self.agents_config['researcher'],
 			verbose=True,
-			tools=[tool]
+			tools=[tool],
+			llm=LLM(model="ollama/llama3.1", base_url="http://localhost:11434")
 		)
 
 	@agent
 	def reporting_analyst(self) -> Agent:
 		return Agent(
 			config=self.agents_config['reporting_analyst'],
-			verbose=True
+			verbose=True,
+			llm=LLM(model="ollama/llama3.1", base_url="http://localhost:11434")
 		)
 
 	# To learn more about structured task outputs, 
